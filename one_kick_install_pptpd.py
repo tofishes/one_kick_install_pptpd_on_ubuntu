@@ -4,10 +4,11 @@ import os
 import sys
 
 def pre_work():
-	print "install pptpd"
-	os.popen("apt-get install pptpd -y")
-	print "install iptables"
-	os.popen("apt-get install ipbables -y")
+	print "******install pptpd**********"
+	log = os.popen("apt-get install pptpd -y").read()
+	print log
+	print "****install iptables***********"
+	log = os.popen("apt-get install ipbables -y").read()
 
 def open_ip_forward():
 	with open("/etc/sysctl.conf","r+") as f:
@@ -72,9 +73,9 @@ def config_pptp_users():
 	f.close()
 
 def config_iptables():
-	#rule = "/sbin/iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -o eth0 -j MASQUERADE"
-	#os.popen(rule)
-	#os.popen("iptables-save > /etc/iptables-rules")
+	rule = "/sbin/iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -o eth0 -j MASQUERADE"
+	os.popen(rule)
+	os.popen("iptables-save > /etc/iptables-rules")
 	f = open("/etc/network/interfaces","r+")
 	f.seek(0,2)
 	f.writelines("pre-up iptables-restore < /etc/iptables-rules\n")
