@@ -74,8 +74,10 @@ def config_pptp_users():
 
 def config_iptables():
 	rule = "/sbin/iptables -t nat -A POSTROUTING -s 192.168.0.0/24 -o eth0 -j MASQUERADE"
-	os.popen(rule)
-	os.popen("iptables-save > /etc/iptables-rules")
+	log = os.popen(rule).read()
+	print log
+	log = os.popen("iptables-save > /etc/iptables-rules").read()
+	print log
 	f = open("/etc/network/interfaces","r+")
 	f.seek(0,2)
 	f.writelines("pre-up iptables-restore < /etc/iptables-rules\n")
