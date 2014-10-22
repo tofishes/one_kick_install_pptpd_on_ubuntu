@@ -7,8 +7,8 @@ def pre_work():
 	print "******install pptpd**********"
 	log = os.popen("apt-get install pptpd -y").read()
 	print log
-	print "****install iptables***********"
-	log = os.popen("apt-get install ipbables -y").read()
+	#print "****install iptables***********"
+	#log = os.popen("apt-get install ipbables -y").read()
 
 def open_ip_forward():
 	with open("/etc/sysctl.conf","r+") as f:
