@@ -89,5 +89,5 @@ if __name__ == '__main__':
 	ip_forward()
 	config_pptp_ip()
 	config_pptp_dns()
-	config_pptp_users()
+	#config_pptp_users()
 	config_iptables()
