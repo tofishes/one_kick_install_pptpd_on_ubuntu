@@ -6,9 +6,10 @@ import sys
 def pre_work():
 	print "******install pptpd**********"
 	log = os.popen("apt-get install pptpd -y").read()
-	print log
+	#print log
 	#print "****install iptables***********"
 	#log = os.popen("apt-get install ipbables -y").read()
+	print "******install pptpd done******"
 
 def open_ip_forward():
 	with open("/etc/sysctl.conf","r+") as f:
@@ -21,6 +22,7 @@ def open_ip_forward():
 		f.seek(0,0)
 		#print data
 		f.writelines(data)
+	print "******open ip_forward done**********"
 
 def ip_forward():
 	ipfwd = os.popen("sysctl -a |grep net.ipv4.ip_forward").read()[-1]
@@ -43,23 +45,16 @@ def config_pptp_ip():
 	f.seek(0,0)
 	f.writelines(data)
 	f.close()
+	print "*****config pptp ip done*******"
 
 def config_pptp_dns():
-	f = open("/etc/ppp/pptpd-options","r+")
-	data = f.readlines()
-	line = 0
-	while line < len(data):
-		if data[line].startswith("#ms-dns"):
-			print data[line]
-			break
-		line = line +1
-	
-	data[line] = "ms-dns 8.8.8.8"
-	data[line+1] = "ms-dns 8.8.4.4"
-	#print data
-	f.seek(0,0)
-	f.writelines(data)
+	f = open("/etc/ppp/pptpd-options","a+")
+	dns2 = "ms-dns 8.8.4.4\n"
+	dns1 = "ms-dns 8.8.8.8\n"
+	f.write(dns1)
+	f.write(dns2)
 	f.close()
+	print "***********config pptp dns done********"
 
 def config_pptp_users():
 	f = open("/etc/ppp/chap-secrets","a+")
@@ -82,6 +77,7 @@ def config_iptables():
 	f.seek(0,2)
 	f.writelines("pre-up iptables-restore < /etc/iptables-rules\n")
 	f.close()
+	print "*******config iptables done**********"
 
 
 if __name__ == '__main__':
