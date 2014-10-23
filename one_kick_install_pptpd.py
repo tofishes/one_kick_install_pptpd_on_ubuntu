@@ -87,5 +87,5 @@ if __name__ == '__main__':
 	config_pptp_ip()
 	config_pptp_dns()
 	config_iptables()
-	config_pptp_users()
+	#config_pptp_users()
 	print "************please reboot system ***********"
