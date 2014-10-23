@@ -57,6 +57,7 @@ def config_pptp_dns():
 	print "***********config pptp dns done********"
 
 def config_pptp_users():
+	print "*********** add vpn user ************"
 	f = open("/etc/ppp/chap-secrets","a+")
 	user = raw_input("please input username:\n")
 	password = raw_input("please input password:\n")
@@ -85,5 +86,6 @@ if __name__ == '__main__':
 	ip_forward()
 	config_pptp_ip()
 	config_pptp_dns()
-	#config_pptp_users()
 	config_iptables()
+	config_pptp_users()
+	print "************please reboot system ***********"
